@@ -35,7 +35,6 @@ export const createRatingService = async (req, res, dto) => {
     return res.status(400).json({ message: "Error creating rating" });
   }
 
-  // Update averageRating and reviewCount on Movie
   const allRatings = await Rating.find({ movie: validateData.data.movie });
   const average =
     allRatings.reduce((sum, r) => sum + r.score, 0) / allRatings.length;
@@ -121,7 +120,6 @@ export const updateRatingService = async (req, res, dto) => {
     { new: true, runValidators: true },
   );
 
-  // Recalculate averageRating on Movie
   const allRatings = await Rating.find({ movie: rating.movie });
   const average =
     allRatings.reduce((sum, r) => sum + r.score, 0) / allRatings.length;
@@ -152,7 +150,6 @@ export const deleteRatingService = async (req, res) => {
 
   await Rating.findByIdAndDelete(req.params.id);
 
-  // Recalculate averageRating on Movie
   const allRatings = await Rating.find({ movie: rating.movie });
   const average =
     allRatings.length > 0
