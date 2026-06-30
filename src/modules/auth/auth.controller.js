@@ -17,7 +17,7 @@ export const SignupController = async (req, res) => {
     });
   }
   const result = await SignupService(req, res, dto);
-  res.status(201).json({
+  return res.status(201).json({
     message: "signup successful",
     result,
   });

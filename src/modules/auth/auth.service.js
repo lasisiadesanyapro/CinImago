@@ -48,6 +48,7 @@ export const SignInService = async (req, res, dto) => {
     },
   };
 };
+
 export const UpdatePasswordService = async (req, res) => {
   const { newPassword, oldPassword, email } = req.body;
   const user = await User.findOne({
@@ -86,8 +87,8 @@ export const forgotPasswordService = async (email, req, res) => {
   user.resetTokenExpires = Date.now() + 10 * 60 * 1000;
   await user.save();
 
-  const serverUrl = process.env.SERVER_URL;
-  const passwordResetLink = `${req.protocol}://${serverUrl}/auth/reset-password?token=${randomBytes}&email=${email}`;
+  const frontendUrl = process.env.SERVER_URL;
+  const passwordResetLink = `${req.protocol}://${frontendUrl}/auth/reset-password?token=${randomBytes}&email=${email}`;
 
   await sendResetPasswordEmail(email);
   return res.status(200).json({ message: "Password reset link sent to email" });

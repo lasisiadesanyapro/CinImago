@@ -5,6 +5,7 @@ import movieRouter from "./modules/movies/movie.route.js";
 import reviewRouter from "./modules/review/review.routes.js";
 import ratingRouter from "./modules/ratings/rating.routes.js";
 import watchlistRouter from "./modules/watchlist/watchlist.routes.js";
+import watchHistoryRouter from "./modules/Watchhistory/Watchhistory.route.js";
 
 const createapp = () => {
   const app = express();
@@ -18,6 +19,7 @@ const createapp = () => {
   app.use("/api/v1/reviews", reviewRouter);
   app.use("/api/v1/ratings", ratingRouter);
   app.use("/api/v1/watchlist", watchlistRouter);
+  app.use("/api/v1/watchhistory", watchHistoryRouter);
   return app;
 };
 export default createapp;

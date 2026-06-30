@@ -16,7 +16,7 @@ const userObject = {
 
 const MongoUri = process.env.DB_STRING;
 mongoose
-  .connect(MongoUri, { dbname: "shopit" })
+  .connect(MongoUri, { dbname: process.env.DB_NAME })
   .then(() => {
     console.log(`connected to mongodb`);
   })
