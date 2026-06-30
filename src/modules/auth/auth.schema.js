@@ -2,7 +2,7 @@ import { email, z } from "zod";
 
 export const SignupSchema = z
   .object({
-    email: z.email(),
+    email: z.email().toLowerCase(),
     firstName: z.string().min(1).max(250),
     lastName: z.string().min(1).max(250),
     password: z.string().min(8).max(200),

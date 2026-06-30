@@ -9,9 +9,7 @@ export const createMovieService = async (req, res, dto) => {
       errors: validateData.error.issues,
     });
   }
-  const { secure_url, public_id } = await uploadToCloudinary(
-    files.image.tempFilePath,
-  );
+  const { secure_url, public_id } = await uploadToCloudinary(files.image.tempFilePath);
 
   const movie = await Movie.create(validateData.data);
   if (!movie) {
@@ -71,14 +69,10 @@ export const updateMovieService = async (req, res, dto) => {
     });
   }
 
-  const movie = await Movie.findByIdAndUpdate(
-    req.params.id,
-    validateData.data,
-    {
-      new: true,
-      runValidators: true,
-    },
-  );
+  const movie = await Movie.findByIdAndUpdate(req.params.id, validateData.data, {
+    new: true,
+    runValidators: true,
+  });
 
   if (!movie) {
     return res.status(404).json({ message: "Movie not found" });

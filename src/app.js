@@ -6,10 +6,19 @@ import reviewRouter from "./modules/review/review.routes.js";
 import ratingRouter from "./modules/ratings/rating.routes.js";
 import watchlistRouter from "./modules/watchlist/watchlist.routes.js";
 import watchHistoryRouter from "./modules/Watchhistory/Watchhistory.route.js";
+import helmet from "helmet";
+import cors from "cors";
+import hpp from "hpp";
+import { limiter } from "./utils/limiter.js";
 
 const createapp = () => {
   const app = express();
+  app.use(helmet());
+  app.disable("x-powered-by");
   app.use(express.json());
+  app.use(hpp());
+  app.use(cors({ origin: "*" }));
+  app.use(limiter);
   app.get("/health", (req, res) => {
     res.status(200).json({ status: "ok", message: "server is up and running" });
   });

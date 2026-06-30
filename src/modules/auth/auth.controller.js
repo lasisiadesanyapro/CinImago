@@ -27,16 +27,14 @@ export const SignInController = async (req, res) => {
   const { email, password } = dto;
 
   const result = await SignInService(req, res, dto);
-  res.cookie("accessToken", result.data.token, {
+  res.cookie("cinimagoAccessToken", result.data.token, {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
     path: "/",
     maxAge: 1000 * 60 * 60 * 24 * 7,
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   });
-  return res
-    .status(200)
-    .json({ message: "User signed in successfully", result });
+  return res.status(200).json({ message: "User signed in successfully", result });
 };
 export const UpdatePasswordController = async (req, res) => {
   const dto = req.body;
