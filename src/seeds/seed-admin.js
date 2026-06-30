@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
-import User from "../modules/auth/user/user.model.js";
+
 import "dotenv/config";
 import bcrypt from "bcryptjs";
 import dns from "node:dns/promises";
+import User from "../modules/user/user.model.js";
 
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
 
 const userObject = {
   firstName: "Adesanya",
   lastName: "Are",
-  email: "adesanya+20@gmail.com",
+  email: "adesanya+20+1@gmail.com",
   password: "power256",
   role: "admin",
 };
@@ -29,6 +30,12 @@ async function seedAdmin() {
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(userObject.password, salt);
+    const existingUser = await User.findOne({ email: userObject.email });
+    if (existingUser) {
+      console.log("Admin user already exists");
+      return;
+      process.exit(0);
+    }
 
     const user = await User.create({
       firstName: userObject.firstName,
