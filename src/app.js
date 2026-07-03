@@ -10,7 +10,7 @@ import helmet from "helmet";
 import hpp from "hpp";
 import cors from "cors";
 import { limiter } from "./utils/limiter.js";
-
+import fileUpload from "express-fileupload";
 const createapp = () => {
   const app = express();
   app.use(helmet());
@@ -26,8 +26,10 @@ const createapp = () => {
       .json({ status: "ok", message: "server is up and running" });
   });
   app.use(cookieParser());
+  app.use(fileUpload({ useTempFiles: true, tempFileDir: "/tmp/" }));
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/movies", movieRouter);
+
   app.use("/api/v1/reviews", reviewRouter);
   app.use("/api/v1/ratings", ratingRouter);
   app.use("/api/v1/watchlist", watchlistRouter);

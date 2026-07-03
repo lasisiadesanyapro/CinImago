@@ -22,12 +22,6 @@ const movieSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    posterUrl: {
-      type: String,
-    },
-    videoUrl: {
-      type: String,
-    },
     averageRating: {
       type: Number,
       default: 0,

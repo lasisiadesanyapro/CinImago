@@ -1,6 +1,6 @@
 import Movie from "./movie.model.js";
 import { movieSchema, updateMovieSchema } from "./movie.schema.js";
-
+import { uploadToCloudinary } from "../../utils/cloudinary.js";
 export const createMovieService = async (req, res, dto) => {
   const validateData = await movieSchema.safeParseAsync(dto);
   if (!validateData.success) {
@@ -9,10 +9,17 @@ export const createMovieService = async (req, res, dto) => {
       errors: validateData.error.issues,
     });
   }
-  const { secure_url, public_id } = await uploadToCloudinary(
-    files.image.tempFilePath,
-  );
 
+  const { files } = req;
+  if (!files || !files.video) {
+    return res.status(400).json({ message: "Video file is required" });
+  }
+
+  const { secure_url, public_id } = await uploadToCloudinary(
+    files.video.tempFilePath,
+    "cinemago/movies",
+    "video",
+  );
   const movie = await Movie.create(validateData.data);
   if (!movie) {
     return res.status(400).json({ message: "Error creating a movie" });
