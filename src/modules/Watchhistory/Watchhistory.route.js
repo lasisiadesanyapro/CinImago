@@ -4,7 +4,7 @@ import {
   getWatchHistoryController,
   getWatchHistoryByIdController,
   deleteWatchHistoryController,
-} from "./watchHistory.controller.js";
+} from "./Watchhistory.controller.js";
 import { isAuth } from "../../middleware/authentication.middleware.js";
 
 const watchHistoryRouter = express.Router();
