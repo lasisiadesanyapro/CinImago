@@ -3,7 +3,7 @@ import {
   getWatchHistoryService,
   getWatchHistoryByIdService,
   deleteWatchHistoryService,
-} from "./watchHistory.service.js";
+} from "./Watchhistory.service.js";
 
 export const recordWatchController = async (req, res) => {
   const dto = req.body;
