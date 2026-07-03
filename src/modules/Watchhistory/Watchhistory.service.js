@@ -1,6 +1,6 @@
 import WatchHistory from "./Watchhistory.model.js";
 import Movie from "../movies/movie.model.js";
-import { watchHistorySchema } from "./watchHistory.schema.js";
+import { watchHistorySchema } from "./Watchhistory.schema.js";
 
 export const recordWatchService = async (req, res, dto) => {
   const validateData = await watchHistorySchema.safeParseAsync(dto);
