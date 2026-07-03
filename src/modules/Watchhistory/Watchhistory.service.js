@@ -1,4 +1,4 @@
-import WatchHistory from "./watchHistory.model.js";
+import WatchHistory from "./Watchhistory.model.js";
 import Movie from "../movies/movie.model.js";
 import { watchHistorySchema } from "./watchHistory.schema.js";
 
