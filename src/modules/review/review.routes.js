@@ -7,12 +7,13 @@ import {
   deleteReviewController,
 } from "./review.controller.js";
 import { isAuth } from "../../middleware/authentication.middleware.js";
+import { restrictTo } from "../../middleware/authorization.middleware.js";
 
 const reviewRouter = express.Router();
 
 reviewRouter
   .route("/")
-  .get(getAllReviewsController)
+  .get(restrictTo("admin"), getAllReviewsController)
   .post(isAuth, createReviewController);
 
 reviewRouter

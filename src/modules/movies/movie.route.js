@@ -8,6 +8,7 @@ import {
 } from "./movie.controller.js";
 import { isAuth } from "../../middleware/authentication.middleware.js";
 import { restrictTo } from "../../middleware/authorization.middleware.js";
+import { getReviewByIdController } from "../review/review.controller.js";
 
 const movieRouter = express.Router();
 
@@ -21,5 +22,6 @@ movieRouter
   .get(getMovieByIdController)
   .put(isAuth, restrictTo("admin"), updateMovieController)
   .delete(isAuth, restrictTo("admin"), deleteMovieController);
+movieRouter.route("/:id/reviews").get(getReviewByIdController);
 
 export default movieRouter;

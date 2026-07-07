@@ -59,17 +59,24 @@ export const getAllReviewsService = async (req, res) => {
 };
 
 export const getReviewByIdService = async (req, res) => {
-  const review = await Review.findById(req.params.id)
-    .populate("user", "name email")
-    .populate("movie", "title");
+  const { page = 1, limit = 10 } = req.query;
 
-  if (!review) {
-    return res.status(404).json({ message: "Review not found" });
-  }
+  const skip = (page - 1) * limit;
+  const [reviews, total] = await Promise.all([
+    Review.find({ movie: req.params.id })
+      .populate("user", "name email")
+      .skip(skip)
+      .limit(Number(limit))
+      .sort({ createdAt: -1 }),
+    Review.countDocuments({ movie: req.params.id }),
+  ]);
 
   return res.json({
-    message: "Review fetched successfully",
-    data: review,
+    message: "Movie reviews fetched successfully",
+    data: reviews,
+    total,
+    page: Number(page),
+    totalPages: Math.ceil(total / limit),
   });
 };
 
